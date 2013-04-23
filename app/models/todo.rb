@@ -1,7 +1,6 @@
 class Todo < ActiveRecord::Base
-  attr_accessible :title, :body, :list_name, :todo_count, :status
-
-  before_save :normalize_list_name, :update_todo_count
+  attr_accessible :title, :body, :status
+  belongs_to :list
 
   STATUS = {
     :incomplete   => 0,
@@ -22,10 +21,6 @@ class Todo < ActiveRecord::Base
     end
   end
 
-  def to_s
-    "#{self.title}: #{self.body}"
-  end
-
   class << self
     def group_by_list_names
       self.all.group_by &:list_name
@@ -40,16 +35,6 @@ class Todo < ActiveRecord::Base
         super
       end
     end
-  end
-
-  private
-
-  def normalize_list_name
-    self.list_name = self.list_name.downcase.gsub ' ', '-'
-  end
-
-  def update_todo_count
-    self.todo_count = Todo.count(:conditions => "list_name = '#{self.list_name}'")
   end
 
 end
