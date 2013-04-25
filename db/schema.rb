@@ -11,19 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423193253) do
+ActiveRecord::Schema.define(:version => 20130424172156) do
 
   create_table "lists", :force => true do |t|
-    t.string   "name"
+    t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "todos", :force => true do |t|
-    t.string  "title"
-    t.string  "body"
-    t.integer "status",  :default => 0
-    t.integer "list_id"
+    t.string   "title",      :null => false
+    t.string   "status",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "list_id"
   end
+
+  add_foreign_key "todos", "lists", :name => "todos_list_id_fk", :dependent => :delete
 
 end
