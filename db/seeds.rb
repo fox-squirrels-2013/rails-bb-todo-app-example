@@ -1,7 +1,18 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+
+dbc  = List.create! :name => 'DBC'
+
+dbc.todos.create!(
+  :title => 'Learn Rails MVC',
+  :status => 'complete'
+)
+
+p4  = List.create! :name => 'DBC - Phase 4'
+
+p4.todos.create!(
+  :title => 'Unlearn Rails MVC',
+  :status => 'in_progress'
+)
+p4.todos.create!(
+  :title => 'Learn BackBone MVC',
+  :status => 'incomplete'
+)
