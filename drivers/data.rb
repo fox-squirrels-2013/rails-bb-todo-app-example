@@ -3,7 +3,6 @@ require_relative '../config/environment'
 # Destroy old data
 
 List.destroy_all
-Todo.destroy_all
 
 Rails.logger.debug "-- done destroying"
 
