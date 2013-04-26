@@ -1,13 +1,16 @@
 class TodosController < ApplicationController
+
   include ListsController::Responders
 
   def index
     return no_list if no_list? params[:list_id]
+
     respond ARD.attrs Todo.where(:list_id => params[:list_id])
   end
 
   def show
     return no_list if no_list? params[:list_id]
+
     attribs = ARD.attrs Todo.find_by_id params[:id]
 
     return no_todo unless attribs
@@ -17,6 +20,7 @@ class TodosController < ApplicationController
 
   def create
     return no_list if no_list? params[:list_id]
+
     todo = Todo.create filter_params(Todo, params)
     attribs, errors = ARD.attrs_and_errs todo
 
@@ -25,8 +29,29 @@ class TodosController < ApplicationController
     respond attribs
   end
 
+  def update
+    return no_list if no_list? params[:list_id]
+
+    todo = Todo.update params[:id], filter_params(Todo, params)
+    attribs, errors = ARD.attrs_and_errs list
+
+    return respond 400, errors if errors.any?
+
+    respond attribs
+  end
+
+  def destroy
+    return no_list if no_list? params[:list_id]
+
+    list = ARD.attrs Todo.destroy params[:id]
+
+    respond list
+  end
+
+  # ---
+
   def no_todo
-    respond(404,  :error => 'todo_not_found')
+    respond 404, :error => 'todo_not_found'
   end
 
   def no_todo? id
