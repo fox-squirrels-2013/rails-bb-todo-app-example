@@ -1,0 +1,46 @@
+<%= render 'client' %>
+
+<script>
+
+  // template sources
+
+  var todoListTemplate = $('[data-todo-list-template]').html()
+
+  var todoItemsTemplate = $('[data-todo-items-template]').html();
+
+  var todoItemTemplate = $('[data-todo-item-template]').html();
+
+  // mock todo data
+
+  var todoItems = {
+    complete: [{title: "a"}, {title: "b"}],
+    incomplete: [{title: "c"}, {title: "d"}],
+    in_progress: [{title: "e"}, {title: "f"}]
+  }
+
+  // render helpers
+
+  var renderTodoItem = function(todoListItem) {
+    return Mustache.render(todoItemTemplate, todoListItem);
+  }
+
+  var renderTodoItems = function(todoItems) {
+    return Mustache.render(todoItemsTemplate, {
+      todoItems: _.map(todoItems, renderTodoItem).join('')
+    });
+  }
+
+  // mock list data
+
+  var listData ={
+    name: "Our list name!!",
+    id: 1,
+    completedTodoItems: renderTodoItems(todoItems.complete),
+    wipTodoItems: renderTodoItems(todoItems.incomplete),
+    incompleteTodoItems: renderTodoItems(todoItems.in_progress)
+  }
+  $('.todo-lists').html(Mustache.render(todoListTemplate, listData));
+
+  $('body').removeClass('loading');
+
+</script>

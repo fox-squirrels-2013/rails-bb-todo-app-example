@@ -1,0 +1,43 @@
+<div class="app-loader">Loading...</div>
+
+<div class="todo-lists">
+</div>
+
+<script data-todo-list-template type="text/mustache">
+  <div class="todo-list">
+    <div class="list-name-header">
+      {{name}}
+    </div>
+    <div class="completed-list left-column">
+      <div class="list-status-header">
+        Completed
+      </div>
+      {{{completedTodoItems}}}
+    </div>
+    <div class="right-column">
+      <div class="wip-list">
+        <div class="list-status-header">
+          WIP
+        </div>
+        {{{wipTodoItems}}}
+      </div>
+      <div class="incomplete-list">
+        <div class="list-status-header">
+          Upcoming
+        </div>
+        {{{incompleteTodoItems}}}
+      </div>
+    </div>
+    <div class="todo-creator">
+      <input type="text">
+    </div>
+  </div>
+</script>
+
+<script data-todo-items-template type="text/mustache">
+  <div class="todo-items">{{{todoItems}}}</div>
+</script>
+
+<script data-todo-item-template type="text/mustache">
+    <div class="todo-item">{{title}}</div>
+</script>
