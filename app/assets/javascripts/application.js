@@ -11,7 +11,5 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
-//= require handlebars
-//= require_tree ../templates
-//= require_tree .
+//= require backbone
+//= require ui
