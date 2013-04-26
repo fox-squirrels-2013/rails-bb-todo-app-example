@@ -43,7 +43,7 @@ class ListsController < ApplicationController
   module Responders
 
     def no_list
-      respond_with({:error => 'list_not_found'}, {:status => 404})
+      respond(404,  :error => 'list_not_found')
     end
 
     def no_list? id
