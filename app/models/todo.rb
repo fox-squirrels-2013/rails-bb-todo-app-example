@@ -3,7 +3,9 @@ class Todo < ActiveRecord::Base
   # Foreign key constraint handled at the db level
   belongs_to :list
   attr_accessible :list_id
-
+  validates :list_id, :presence => {
+    :message => 'cant_be_null'
+  }
   # ---
 
   attr_accessible :title
