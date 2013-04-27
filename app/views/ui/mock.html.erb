@@ -4,8 +4,6 @@
 
   // template sources
 
-  var todoListTemplate = $('[data-todo-list-template]').html()
-
   var todoItemsTemplate = $('[data-todo-items-template]').html();
 
   var todoItemTemplate = $('[data-todo-item-template]').html();
@@ -32,14 +30,37 @@
 
   // mock list data
 
-  var listData ={
-    name: "Our list name!!",
-    id: 1,
-    completedTodoItems: renderTodoItems(todoItems.complete),
-    wipTodoItems: renderTodoItems(todoItems.incomplete),
-    incompleteTodoItems: renderTodoItems(todoItems.in_progress)
-  }
-  $('.todo-lists').html(Mustache.render(todoListTemplate, listData));
+  // views
+
+  var TodoListsView = Backbone.View.extend({
+
+    render: function() {
+      var listsData = [{
+        name: "Our list name!!",
+        id: 1,
+        completedTodoItems: renderTodoItems(todoItems.complete),
+        wipTodoItems: renderTodoItems(todoItems.incomplete),
+        incompleteTodoItems: renderTodoItems(todoItems.in_progress)
+      }];
+
+      this.$el.html(this.renderLists(listsData));
+    },
+
+    renderLists: function(listsData) {
+      var _this = this;
+      return _.map(listsData, function(listData){
+        return Mustache.render(_this.todoListTemplate, listData);
+      }).join('');
+    },
+
+    todoListTemplate: $('[data-todo-list-template]').html()
+
+  });
+
+  window.app = {};
+
+  app.todoListView = new TodoListsView({el: $('.todo-lists')});
+  app.todoListView.render();
 
   $('body').removeClass('loading');
 
