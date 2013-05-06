@@ -34,6 +34,11 @@
 
   var TodoListsView = Backbone.View.extend({
 
+    initialize: function(){
+      _.bindAll(this, "render");
+      this.collection.on('add', this.render);
+    },
+
     render: function() {
       var listsData = this.collection
       this.$el.html(this.renderLists(listsData));
@@ -51,33 +56,76 @@
   });
 
   var TodoListCreatorView = Backbone.View.extend({
+
     initialize: function(){
-      var _this = this;
-      this.$el.on('submit', function(event){
-        event.preventDefault();
-        _this.model.save({name: "test"});
-      })
-      // _this.model.on('su?')
+      _.bindAll(this, "saved", "saveError");
+    },
+
+    events: {
+      "submit": "trySave"
+    },
+
+    trySave: function(event){
+      event.preventDefault();
+
+      var listName = this.$el.find("input").val();
+
+      this.saving(true);
+
+      var newTodoList = this.collection.create(
+        { name: listName }, // model attributes
+        { success: this.saved, error: this.saveError, wait: true } // options to create
+      );
+
+      if (newTodoList.validationError) {
+        alert("Invalid!");
+        this.saving(false);
+      }
+    },
+
+    saving: function(toggle) {
+      this.$el.toggleClass('saving', toggle);
+    },
+
+    saved: function(){
+      this.saving(false);
+      this.$el.find("input").val('');
+    },
+
+    saveError: function(){
+      alert("Save unsuccessful, try again?");
+      this.saving(false);
     }
-  });
 
-  var NewTodoListModel = Backbone.Model.extend({
 
   });
 
-  var TodoListsCollection = Backbone.Collection.extend({  });
 
+  var TodoListModel = Backbone.Model.extend({
+
+    validate: function(attrs) {
+      if (attrs.name == '') return "Invalid";
+    }
+
+  });
+
+  var TodoListsCollection = Backbone.Collection.extend({
+    model: TodoListModel
+  });
 
 
   // Application Init
 
-  Backbone.sync = function(){};
+  Backbone.sync = function(method, model, options){
+    setTimeout(function(){
+      options.success();
+    }, 1000)
+  };
 
   var app = {}
   window.app = app;
 
-  var newTodoListModel = new NewTodoListModel({});
-  newTodoListModel.on('change', function(){ })
+
   var todoListCollection = new TodoListsCollection([
     {
       name: "Our list name!!",
@@ -88,10 +136,16 @@
     }
   ]);
 
-  app.todoListView = new TodoListsView({el: $('.todo-lists'), collection: todoListCollection});
+  app.todoListView = new TodoListsView({
+    el: $('.todo-lists'),
+    collection: todoListCollection
+  });
   app.todoListView.render();
 
-  app.todoListCreatorView = new TodoListCreatorView({el: $('.list-creator'), model: newTodoListModel});
+  app.todoListCreatorView = new TodoListCreatorView({
+    el: $('.list-creator'),
+    collection: todoListCollection
+  });
 
   $('body').removeClass('loading');
 

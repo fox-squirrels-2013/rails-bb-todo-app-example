@@ -73,8 +73,13 @@ body:not(.loading) .app-loader {
 
 .list-creator {
 
+  &.saving {
+    background: #ccc;
+  }
+
   input {
     display: block;
     margin: 0 auto;
   }
+
 }
