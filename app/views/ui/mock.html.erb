@@ -30,26 +30,19 @@
 
   // mock list data
 
-  // views
+  // View classes
 
   var TodoListsView = Backbone.View.extend({
 
     render: function() {
-      var listsData = [{
-        name: "Our list name!!",
-        id: 1,
-        completedTodoItems: renderTodoItems(todoItems.complete),
-        wipTodoItems: renderTodoItems(todoItems.incomplete),
-        incompleteTodoItems: renderTodoItems(todoItems.in_progress)
-      }];
-
+      var listsData = this.collection
       this.$el.html(this.renderLists(listsData));
     },
 
-    renderLists: function(listsData) {
+    renderLists: function(lists) {
       var _this = this;
-      return _.map(listsData, function(listData){
-        return Mustache.render(_this.todoListTemplate, listData);
+      return _.map(lists.models, function(listModel){
+        return Mustache.render(_this.todoListTemplate, listModel.attributes);
       }).join('');
     },
 
@@ -57,10 +50,48 @@
 
   });
 
-  window.app = {};
+  var TodoListCreatorView = Backbone.View.extend({
+    initialize: function(){
+      var _this = this;
+      this.$el.on('submit', function(event){
+        event.preventDefault();
+        _this.model.save({name: "test"});
+      })
+      // _this.model.on('su?')
+    }
+  });
 
-  app.todoListView = new TodoListsView({el: $('.todo-lists')});
+  var NewTodoListModel = Backbone.Model.extend({
+
+  });
+
+  var TodoListsCollection = Backbone.Collection.extend({  });
+
+
+
+  // Application Init
+
+  Backbone.sync = function(){};
+
+  var app = {}
+  window.app = app;
+
+  var newTodoListModel = new NewTodoListModel({});
+  newTodoListModel.on('change', function(){ })
+  var todoListCollection = new TodoListsCollection([
+    {
+      name: "Our list name!!",
+      id: 1,
+      completedTodoItems: renderTodoItems(todoItems.complete),
+      wipTodoItems: renderTodoItems(todoItems.incomplete),
+      incompleteTodoItems: renderTodoItems(todoItems.in_progress)
+    }
+  ]);
+
+  app.todoListView = new TodoListsView({el: $('.todo-lists'), collection: todoListCollection});
   app.todoListView.render();
+
+  app.todoListCreatorView = new TodoListCreatorView({el: $('.list-creator'), model: newTodoListModel});
 
   $('body').removeClass('loading');
 
