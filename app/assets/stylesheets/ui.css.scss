@@ -50,6 +50,13 @@
   }
 }
 
+.list-creator {
+  input {
+    margin: 0 auto;
+    display: block;
+  }
+}
+
 body.loading .app-loader {
   display: block;
 }
@@ -61,3 +68,5 @@ body.loading > *:not(.app-loader) {
 body:not(.loading) .app-loader {
   display: none;
 }
+
+
