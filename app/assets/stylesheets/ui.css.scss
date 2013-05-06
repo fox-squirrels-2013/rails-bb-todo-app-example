@@ -2,60 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// Normalize
+
 * {
   margin: 0;
   padding: 0;
 }
-.todo-lists {
-  width: 500px;
-  height: 100%;
-  margin: 0 auto;
 
-}
-.todo-list {
-  overflow: hidden;
-  border: 1px solid black;
-  margin-bottom: 15px;
-}
-.todo-list:last-child {
-  margin-bottom: 0px;
-
-}
-.list-name-header {
-  font-size: 16px;
-  font-weight: bold;
-}
-.left-column {
-
-  float: left;
-  overflow: hidden;
-  width: 49%;
-
-}
-.right-column {
-  float: right;
-  overflow: hidden;
-  width: 49%;
-  border-left: 1px solid black;
-}
-.list-name-header {
-  border-bottom: 1px solid black;
-}
-
-.todo-creator {
-  clear: both;
-  input{
-    margin: 0 auto;
-    display: block;
-  }
-}
-
-.list-creator {
-  input {
-    margin: 0 auto;
-    display: block;
-  }
-}
+// Application Loader
 
 body.loading .app-loader {
   display: block;
@@ -69,4 +23,58 @@ body:not(.loading) .app-loader {
   display: none;
 }
 
+// Todo Lists (Named lists of todo items)
 
+.todo-lists {
+  width: 500px;
+  height: 100%;
+  margin: 0 auto;
+
+  .todo-list {
+    border: 1px solid black;
+    margin-bottom: 15px;
+    overflow: hidden;
+
+    &:last-child{
+      margin-bottom: 0px;
+    }
+
+    .list-name-header {
+      border-bottom: 1px solid black;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    // Todo Items
+
+    .left-column {
+      float: left;
+      overflow: hidden;
+      width: 49%;
+    }
+
+    .right-column {
+      border-left: 1px solid black;
+      float: right;
+      overflow: hidden;
+      width: 49%;
+    }
+
+    .todo-creator {
+      clear: both;
+
+      input {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.list-creator {
+
+  input {
+    display: block;
+    margin: 0 auto;
+  }
+}
