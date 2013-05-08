@@ -6,4 +6,9 @@ class UiController < ApplicationController
     render :text => ui_html, :layout => 'server'
   end
 
+  def client
+    client_program = ClientTemplateCompiler.compile
+    render :text => client_program, :layout => 'client'
+  end
+
 end
