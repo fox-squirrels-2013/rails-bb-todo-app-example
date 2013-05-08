@@ -10,11 +10,14 @@ class ApplicationController < ActionController::Base
 
   # given some data or a status code and some data, peforms the rails response
   # dance sending the data as json
-  def respond code, data = nil
+  def respond code_or_data, data = nil
     # allow respond(data)
-    return respond 200, code unless code.kind_of?(Integer) or code.kind_of?(Symbol)
-    render :json => data, :status => code
+    return respond 200, code_or_data unless is_response_code? code_or_data
+    render :json => data, :status => code_or_data
   end
 
+  def is_response_code? obj
+    obj.kind_of?(Integer) or obj.kind_of?(Symbol)
+  end
 
 end
