@@ -1,0 +1,7 @@
+<script data-todo-list-template type="text/mustache">
+  <%= File.read(Rails.root.join("app/views/ui/todoList.html.mustache")).html_safe %>
+</script>
+
+<script data-todo-item-template type="text/mustache">
+  <%= File.read(Rails.root.join("app/views/ui/todoItem.html.mustache")).html_safe %>
+</script>

@@ -1,0 +1,29 @@
+<div class="todo-list">
+  <div class="list-name-header">
+    {{name}}
+  </div>
+  <div class="completed-list left-column">
+    <div class="list-status-header">
+      Completed
+    </div>
+    {{{completedTodoItems}}}
+  </div>
+  <div class="right-column">
+    <div class="wip-list">
+      <div class="list-status-header">
+        WIP
+      </div>
+      {{{wipTodoItems}}}
+    </div>
+    <div class="incomplete-list">
+      <div class="list-status-header">
+        Upcoming
+      </div>
+      {{{incompleteTodoItems}}}
+    </div>
+  </div>
+  <div class="todo-creator">
+    <input type="text">
+  </div>
+  <button class="delete">Delete</button>
+</div>
