@@ -3,15 +3,15 @@
 <head>
   <title>Todo App</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "server" %>
   <%= csrf_meta_tags %>
 
 </head>
 <body class="loading">
 
 <div class="app-loader">Loading...</div>
-
-<%= yield %>
-
+<div class='main'>
+  <%= yield %>
+</div>
 </body>
 </html>
