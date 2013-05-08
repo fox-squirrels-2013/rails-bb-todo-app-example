@@ -18,7 +18,7 @@ class Api::ListsController < ApiController
 
     return respond 400, errors if errors.any?
 
-    respond attribs
+    respond :created, attribs
   end
 
   def update

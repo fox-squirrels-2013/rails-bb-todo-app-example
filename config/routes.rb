@@ -2,10 +2,9 @@ RefactorThis::Application.routes.draw do
 
   root :to => "ui#index"
   get '/mock', :to => "ui#mock"
-  get '/server', :to => "ui#server"
+  get '/server', :to => "ui#server", :as => :server_ui
 
-
-  # todo: namespace :api do
+  # non-api controllers
   resources :lists do
     resources :todos
   end

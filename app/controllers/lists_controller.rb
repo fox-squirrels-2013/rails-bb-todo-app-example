@@ -1,24 +1,12 @@
 class ListsController < ApplicationController
 
-  def index
-    respond ARD.attrs List.all
-  end
-
-  def show
-    attribs = ARD.attrs List.find params[:id]
-
-    return no_list unless attribs
-
-    respond attribs
-  end
-
   def create
     list = List.create filter_params(List, params)
     attribs, errors = ARD.attrs_and_errs list
 
     return respond 400, errors if errors.any?
 
-    respond attribs
+    redirect_to server_ui_path
   end
 
   def update
@@ -29,7 +17,7 @@ class ListsController < ApplicationController
 
     return respond 400, errors if errors.any?
 
-    respond attribs
+    redirect_to server_ui_path
   end
 
   def destroy
@@ -37,21 +25,7 @@ class ListsController < ApplicationController
 
     list = ARD.attrs List.destroy params[:id]
 
-    respond list
+    redirect_to server_ui_path
   end
-
-  module Responders
-
-    def no_list
-      respond(404,  :error => 'list_not_found')
-    end
-
-    def no_list? id
-      not id.blank? and not List.exists? id
-    end
-
-  end
-
-  include Responders
 
 end

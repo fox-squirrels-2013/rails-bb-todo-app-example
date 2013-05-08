@@ -44,6 +44,10 @@ class UiController < ApplicationController
     def lists
       @lists_data.map { |list_data| ListPresenter.new(list_data).render }
     end
+
+    def createListEndpoint
+      '/lists'
+    end
   end
 
   class ListPresenter

@@ -5,7 +5,7 @@
 </div>
 
 <div class="list-creator">
-  <form>
-    <input type="text" placeholder="new todo list">
+  <form action="{{createListEndpoint}}" method="post">
+    <input type="text" name="name" placeholder="new todo list">
   </form>
 </div>
