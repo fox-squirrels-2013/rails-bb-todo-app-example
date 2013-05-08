@@ -10,4 +10,10 @@ RefactorThis::Application.routes.draw do
     resources :todos
   end
 
+  namespace :api do
+    resources :lists do
+      resources :todos
+    end
+  end
+
 end
