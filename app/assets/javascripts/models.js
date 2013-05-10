@@ -20,7 +20,7 @@
     this.todos = new TodoCollection
     var _this = this
     this.todos.url = function() { return _this.url() + '/todos' }
-    this.on('change', function(){ _this.todos.fetch() })
+    this.on('sync', function(){ _this.todos. fetch() })
   }
 
   p.url = function(){
