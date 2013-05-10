@@ -1,1 +1,8 @@
-<div class="todo-item">{{title}}</div>
+<div class="todo-item" data-todo data-id="{{id}}">
+  <span class="title">{{title}}</span>
+
+  {{#notCompleted}}
+    <button class="complete">complete</button>
+  {{/notCompleted}}
+
+</div>

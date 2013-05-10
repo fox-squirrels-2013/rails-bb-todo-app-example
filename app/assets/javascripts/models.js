@@ -20,7 +20,15 @@
     this.todos = new TodoCollection
     var _this = this
     this.todos.url = function() { return _this.url() + '/todos' }
-    this.on('sync', function(){ _this.todos. fetch() })
+
+    this.on('destroy', function() { _this.destroying = true })
+    this.on('sync', function(){
+      if (!_this.destroying) _this.todos.fetch()
+    })
+
+    this.todos.on('change', function(changedTodoModel) {
+      _this.trigger('change', changedTodoModel)
+    })
   }
 
   p.url = function(){

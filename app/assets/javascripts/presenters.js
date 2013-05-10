@@ -97,6 +97,10 @@
     return this.todoModel.get('id')
   }
 
+  p.notCompleted = function(){
+    return this.todoModel.get('status') !== 'complete'
+  }
+
   p.render = function(){
     return templates.todoItem(this)
   }

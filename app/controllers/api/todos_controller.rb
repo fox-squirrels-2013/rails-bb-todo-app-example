@@ -33,7 +33,7 @@ class Api::TodosController < ApiController
     return no_list if no_list? params[:list_id]
 
     todo = Todo.update params[:id], filter_params(Todo, params)
-    attribs, errors = ARD.attrs_and_errs list
+    attribs, errors = ARD.attrs_and_errs todo
 
     return respond 400, errors if errors.any?
 
@@ -43,9 +43,9 @@ class Api::TodosController < ApiController
   def destroy
     return no_list if no_list? params[:list_id]
 
-    list = ARD.attrs Todo.destroy params[:id]
+    todo = ARD.attrs Todo.destroy params[:id]
 
-    respond list
+    respond todo
   end
 
   # ---

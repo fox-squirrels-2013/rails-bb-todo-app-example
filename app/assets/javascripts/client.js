@@ -18,17 +18,20 @@
   p.events = {
     "submit .list-creator": "createList"
   , "click  [data-list] > .delete": "deleteList"
+  , "click  [data-todo] > .complete": "completeTodo"
   }
 
   p.initialize = function(){
     this.listCollection = new ListCollection
     this.listCollection.on('error', this.error, this)
-    this.listCollection.on('sync destroy', this.render, this)
+    this.listCollection.on('change destroy', this.render, this)
 
     // the first time the lists sync, also sync all their
     // todos
     var _this = this
     this.listCollection.once('sync', function(collection){
+      _this.hideLoader()
+
       collection.each(function(list){
         list.todos.fetch()
         list.todos.once('sync', _this.render, _this)
@@ -50,10 +53,24 @@
     this.listCollection.get(listId).destroy()
   }
 
+  p.completeTodo = function(event){
+    var listId = $(event.target).closest('[data-list]').data('id')
+    var todoId = $(event.target).closest('[data-todo]').data('id')
+
+    this.listCollection.get(listId).todos.get(todoId).
+      save({ status: 'complete' })
+  }
+
   p.render = function(){
     var uiPresenter = new UIPresenter({listCollection: this.listCollection})
     this.$el.html(uiPresenter.render())
     return this
+  }
+
+  // the loader should probably be local to this element - i.e. #main should
+  // have a loader, not the body tag
+  p.hideLoader = function(){
+    $('body').removeClass('loading')
   }
 
   p.error = function(){
@@ -72,8 +89,7 @@ $(function() {
 
   var uiController = new UIViewController({el: $('.main')}).render()
 
+  // for development
   window.uiController = uiController
-
-  $('body').removeClass('loading')
 
 })
