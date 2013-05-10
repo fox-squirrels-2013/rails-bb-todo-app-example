@@ -1,5 +1,0 @@
-<% for template_name in %w(ui todoList todoItem todoItemList) %>
-  <script data-template data-name="<%= template_name %>" type="text/mustache">
-    <%= File.read(Rails.root.join("app/views/ui/#{template_name}.html.mustache")).html_safe %>
-  </script>
-<% end %>
