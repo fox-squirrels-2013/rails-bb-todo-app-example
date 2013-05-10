@@ -17,12 +17,13 @@
 
   p.events = {
     "submit .list-creator": "createList"
+  , "click  [data-list] > .delete": "deleteList"
   }
 
   p.initialize = function(){
     this.listCollection = new ListCollection
     this.listCollection.on('error', this.error, this)
-    this.listCollection.on('sync', this.render, this)
+    this.listCollection.on('sync destroy', this.render, this)
 
     // the first time the lists sync, also sync all their
     // todos
@@ -42,6 +43,11 @@
     var listName = $(event.target).serializeArray()[0].value
 
     this.listCollection.create({name: listName})
+  }
+
+  p.deleteList = function(event){
+    var listId = $(event.target).closest('[data-list]').data('id')
+    this.listCollection.get(listId).destroy()
   }
 
   p.render = function(){

@@ -40,6 +40,10 @@
     return this.listModel.get('name')
   }
 
+  p.id = function(){
+    return this.listModel.get('id')
+  }
+
   p.renderTodoItems = function(status){
     return new TodoItemsPresenter(this.listModel.todos.where({'status': status})).render()
   }
