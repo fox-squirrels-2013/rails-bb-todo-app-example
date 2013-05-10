@@ -18,14 +18,13 @@
 
   p.initialize = function(){
     this.todos = new TodoCollection
-    this.todos.url = this.url() + '/todos'
-    this.todos.fetch()
+    var _this = this
+    this.todos.url = function() { return _this.url() + '/todos' }
+    this.on('sync', function(){ _this.todos.fetch() })
   }
 
-  // p.url = '/todo'
-
   p.url = function(){
-    if (this.isNew()) return '/api/lists';
+    if (this.isNew()) return '/api/lists'
     return '/api/lists/' + this.get('id')
   }
 
@@ -43,7 +42,6 @@
 
   var coll = this.ListCollection = Backbone.Collection.extend()
     , p = coll.prototype
-
 
   p.url = '/api/lists'
 

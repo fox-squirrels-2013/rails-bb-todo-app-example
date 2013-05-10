@@ -42,7 +42,6 @@
     var listName = $(event.target).serializeArray()[0].value
 
     this.listCollection.create({name: listName})
-    // var listModel = this.listCollection.create({name: listName})
   }
 
   p.render = function(){
@@ -65,7 +64,9 @@ $(function() {
 
   templates.load()
 
-  window.uiController = new UIViewController({el: $('.main')}).render()
+  var uiController = new UIViewController({el: $('.main')}).render()
+
+  window.uiController = uiController
 
   $('body').removeClass('loading')
 
