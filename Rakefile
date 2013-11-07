@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-RefactorThis::Application.load_tasks
+TodoApp::Application.load_tasks

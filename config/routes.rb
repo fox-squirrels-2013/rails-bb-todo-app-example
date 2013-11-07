@@ -1,4 +1,4 @@
-RefactorThis::Application.routes.draw do
+TodoApp::Application.routes.draw do
 
   root :to => "ui#index"
   get '/mock', :to => "ui#mock"
