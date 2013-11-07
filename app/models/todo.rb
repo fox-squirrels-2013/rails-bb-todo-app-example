@@ -6,6 +6,7 @@ class Todo < ActiveRecord::Base
   validates :list_id, :presence => {
     :message => 'cant_be_null'
   }
+
   # ---
 
   attr_accessible :title
