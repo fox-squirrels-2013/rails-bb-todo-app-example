@@ -16,6 +16,7 @@ Some interactions are still missing! Pull requests welcome! Help us make this be
 Setup & run with:
 
     bundle
+    bundle exec rake db:create db:seed
     bundle exec rails s
 
 The server-rendered UI is at: http://localhost:3000/server
